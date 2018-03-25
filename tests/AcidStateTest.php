@@ -20,12 +20,26 @@ class AcidStateTest extends BaseCase
     public function testDynamicRegisterStateProgression()
     {
         $acidState = AcidState::create()
-            ->setTransitions('armed', 'price_requested', 'price_agreed', 'sold');
+            ->setTransitions('one', 'two', 'three', 'four');
 
         $this->assertEquals(
-            ['armed', 'price_requested', 'price_agreed', 'sold'],
+            ['one', 'two', 'three', 'four'],
             $acidState->getTransitions()
         );
+    }
+
+    public function testCanAdvanceToNextState()
+    {
+        $acidState = AcidState::create()
+            ->setTransitions('one', 'two', 'three', 'four');
+
+        $acidState->nextState();
+
+        $this->assertEquals('two', $acidState->getCurrentState());
+
+        $acidState->nextState();
+
+        $this->assertEquals('three', $acidState->getCurrentState());
     }
 
     /**

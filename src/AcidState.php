@@ -5,6 +5,7 @@ namespace AcidState;
 class AcidState
 {
     private $transitions = [];
+    private $stateIndex = 0;
 
     /**
      * Create a new AcidState
@@ -18,7 +19,7 @@ class AcidState
 
     /**
      * Add possible state transitions
-     * cannot be redefined on the fly.
+     * cannot be redefined.
      * 
      * @return AcidState\AcidState $this
      */
@@ -26,7 +27,7 @@ class AcidState
     {
         if (count($this->transitions) == 0) {
 
-            $this->setInitialState($transitions[0]);
+            $this->setInitialState($transitions[$this->stateIndex]);
 
             $this->transitions = $transitions;
         }
@@ -52,6 +53,17 @@ class AcidState
     public function getCurrentState()
     {
         return $this->state;
+    }
+
+    /**
+     * Advance state index and state one level up
+     * 
+     * @return void
+     */
+    public function nextState()
+    {
+        $this->stateIndex += 1;
+        $this->state = $this->transitions[$this->stateIndex];
     }
 
     /**
