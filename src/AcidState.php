@@ -112,6 +112,12 @@ class AcidState
         ]);
     }
 
+    /**
+     * Output the state as a json encoded string
+     * that can reinitialize the state
+     * 
+     * @return string $acid_state
+     */
     public function json()
     {
         return json_encode([
@@ -122,6 +128,11 @@ class AcidState
         ]);
     }
 
+    /**
+     * Reinitialize an AcidState from a json encoded string
+     * 
+     * @return AcidState\AcidState $this
+     */
     private function initialize(string $state_string)
     {
         $state = json_decode($state_string, true);

@@ -124,4 +124,32 @@ class AcidStateTest extends BaseCase
 
         $this->assertEquals("one", $acidState->getCurrentState());
     }
+
+    /**
+     * Test that state json string can recreate the acid state
+     * from a previous acid state saved as json
+     * 
+     * @return void
+     */
+    public function testThatJsonStringCanBeSavedAndRecreated()
+    {
+        $acidState = AcidState::create()
+            ->setTransitions('one', 'two', 'three', 'four');
+
+        $this->assertEquals("one", $acidState->getCurrentState());
+
+        $acidState->nextState();
+
+        $this->assertEquals("two", $acidState->getCurrentState());
+
+        $state_string = $acidState->json();
+
+        $acidState2 = AcidState::create($state_string);
+
+        $this->assertEquals("two", $acidState2->getCurrentState());
+
+        $acidState2->rollback();
+
+        $this->assertEquals("one", $acidState2->getCurrentState());
+    }
 }
