@@ -69,3 +69,7 @@ $acidState->getNextState();
 ```
 $acidState = AcidState::create($json_encoded_acid_state);
 ```
+
+### Contributing
+
+To contribute please submit a pull request! Pull requests are always welcome!
