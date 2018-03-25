@@ -152,4 +152,21 @@ class AcidStateTest extends BaseCase
 
         $this->assertEquals("one", $acidState2->getCurrentState());
     }
+
+    /**
+     * Test that next state can be checked without actually moving forward
+     * 
+     * @return void
+     */
+    public function testCanGetNextStateWithoutMovingAhead()
+    {
+        $acidState = AcidState::create()
+            ->setTransitions('one', 'two', 'three', 'four');
+
+        $this->assertEquals("one", $acidState->getCurrentState());
+
+        $this->assertEquals("two", $acidState->getNextState());
+
+        $this->assertEquals("one", $acidState->getCurrentState());
+    }
 }

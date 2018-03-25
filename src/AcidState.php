@@ -65,6 +65,16 @@ class AcidState
     }
 
     /**
+     * Return a string representation of the next available state
+     * 
+     * @return string $this->next_state
+     */
+    public function getNextState()
+    {
+        return $this->transitions[$this->stateIndex + 1];
+    }
+
+    /**
      * Advance state index and state one level up
      * 
      * @return void
