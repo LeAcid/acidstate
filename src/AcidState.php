@@ -16,8 +16,13 @@ class AcidState
      * 
      * @return AcidState\AcidState self
      */
-    static public function create()
+    static public function create($state_string = false)
     {
+        if ($state_string) {
+            $acidState = new self;
+
+            return $acidState->initialize($state_string);
+        }
         return new self;
     }
 
@@ -115,5 +120,17 @@ class AcidState
             'transitions'   => $this->transitions,
             'history'       => $this->history
         ]);
+    }
+
+    private function initialize(string $state_string)
+    {
+        $state = json_decode($state_string, true);
+
+        $this->transitions  = $state['transitions'];
+        $this->history      = $state['history'];
+        $this->state        = $state['state'];
+        $this->state_index  = $state['state_index'];
+
+        return $this;
     }
 }
