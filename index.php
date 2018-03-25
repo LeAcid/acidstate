@@ -12,3 +12,5 @@ $acidState->nextState();
 $acidState->nextState();
 
 $acidState->rollback();
+
+var_dump($acidState->json());

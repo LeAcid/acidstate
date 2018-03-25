@@ -9,6 +9,7 @@ class AcidState
     private $transitions = [];
     private $stateIndex = 0;
     private $history = [];
+    private $state;
 
     /**
      * Create a new AcidState
@@ -103,6 +104,16 @@ class AcidState
             'state'         => $this->state,
             'state_index'   => $this->stateIndex,
             'date'          => Carbon::now()->timestamp
+        ]);
+    }
+
+    public function json()
+    {
+        return json_encode([
+            'state'         => $this->state,
+            'state_index'   => $this->stateIndex,
+            'transitions'   => $this->transitions,
+            'history'       => $this->history
         ]);
     }
 }
