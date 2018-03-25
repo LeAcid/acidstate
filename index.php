@@ -4,6 +4,11 @@ require __DIR__ . '/vendor/autoload.php';
 
 use AcidState\AcidState;
 
-$state = new AcidState;
+$acidState = AcidState::create()
+    ->setTransitions('one', 'two', 'three', 'four');
 
-echo $state->currentState();
+$acidState->nextState();
+
+$acidState->nextState();
+
+$acidState->rollback();

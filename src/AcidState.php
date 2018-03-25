@@ -2,10 +2,13 @@
 
 namespace AcidState;
 
+use Carbon\Carbon;
+
 class AcidState
 {
     private $transitions = [];
     private $stateIndex = 0;
+    private $history = [];
 
     /**
      * Create a new AcidState
@@ -64,6 +67,19 @@ class AcidState
     {
         $this->stateIndex += 1;
         $this->state = $this->transitions[$this->stateIndex];
+        $this->logAction('next');
+    }
+
+    /**
+     * Rollback state one level based on history
+     * 
+     * @return void
+     */
+    public function rollback()
+    {
+        array_pop($this->history);
+        $this->stateIndex = $this->history[count($this->history) - 1]['state_index'];
+        $this->state      = $this->history[count($this->history) - 1]['state'];
     }
 
     /**
@@ -74,5 +90,17 @@ class AcidState
     private function setInitialState($state)
     {
         $this->state = $state;
+
+        $this->logAction('init_state');
+    }
+
+    private function logAction(string $action)
+    {
+        array_push($this->history, [
+            'action'        => $action,
+            'state'         => $this->state,
+            'state_index'   => $this->stateIndex,
+            'date'          => Carbon::now()->timestamp
+        ]);
     }
 }
