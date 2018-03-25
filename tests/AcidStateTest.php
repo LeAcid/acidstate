@@ -68,4 +68,23 @@ class AcidStateTest extends BaseCase
 
         $this->assertEquals('one', $acidState->getCurrentState());
     }
+
+    /**
+     * Test that state stops at the end of transitions
+     * 
+     * @return void
+     */
+    public function testThatStopsAtTheEndOfTransitions()
+    {
+        $acidState = AcidState::create()
+            ->setTransitions('one', 'two', 'three', 'four');
+        
+        $acidState->nextState();
+        $acidState->nextState();
+        $acidState->nextState();
+        $acidState->nextState();
+        $acidState->nextState();
+
+        $this->assertEquals('four', $acidState->getCurrentState());
+    }
 }

@@ -65,9 +65,11 @@ class AcidState
      */
     public function nextState()
     {
-        $this->stateIndex += 1;
-        $this->state = $this->transitions[$this->stateIndex];
-        $this->logAction('next');
+        if (($this->stateIndex + 1) < (count($this->transitions))) {
+            $this->stateIndex += 1;
+            $this->state = $this->transitions[$this->stateIndex];
+            $this->logAction('next');
+        }
     }
 
     /**
