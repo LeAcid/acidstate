@@ -150,7 +150,7 @@ class AcidState
         $this->transitions  = $state['transitions'];
         $this->history      = $state['history'];
         $this->state        = $state['state'];
-        $this->state_index  = $state['state_index'];
+        $this->stateIndex  = $state['state_index'];
 
         return $this;
     }
