@@ -71,7 +71,9 @@ class AcidState
      */
     public function getNextState()
     {
-        return $this->transitions[$this->stateIndex + 1];
+        if (array_key_exists($this->stateIndex + 1, $this->transitions)) {
+            return $this->transitions[$this->stateIndex + 1];
+        }
     }
 
     /**
